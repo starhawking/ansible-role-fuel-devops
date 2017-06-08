@@ -1,0 +1,2 @@
+localhost ansible_connection=local
+devo ansible_host=192.168.122.92 ansible_user=shi ansible_become=yes ansible_ssh_common_args='-o ProxyCommand="ssh -A -W %h:%p -q shi@172.19.69.123"'

@@ -1,0 +1,35 @@
+---
+
+- apt:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - postgresql
+    - python-psycopg2
+
+- replace:
+    path: "/etc/postgresql/9.5/main/pg_hba.conf"
+    regexp: 'peer'
+    replace: 'trust'
+  notify: restart postgres
+
+- postgresql_user:
+    name: fuel_devops
+    password: fuel_devops
+  become_user: postgres
+
+- shell: psql -c "DO \$$ BEGIN  IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'fuel_devops') THEN CREATE ROLE fuel_devops WITH LOGIN PASSWORD 'fuel_devops'; END IF ; END \$$;"
+  become: true
+  become_user: postgres
+
+- shell: psql -c "DO \$$ BEGIN  IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'fuel_devops') THEN CREATE DATABASE fuel_devops; END IF ; END \$$;"
+  become: true
+  become_user: postgres
+
+- shell: /opt/fuel-devops/bin/django-admin.py syncdb --settings=devops.settings
+  become: true
+  become_user: "{{ devops_user }}"
+
+- shell: /opt/fuel-devops/bin/django-admin.py migrate devops --settings=devops.settings
+  become: true
+  become_user: "{{ devops_user }}"

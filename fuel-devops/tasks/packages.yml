@@ -1,0 +1,33 @@
+---
+# Packages for Fuel DevOps
+
+- name: dist-upgrade
+  apt:
+    upgrade: dist
+    update_cache: yes
+
+- name: Add Fuel-DevOps Dependencies
+  apt:
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - git
+    - libyaml-dev
+    - libffi-dev
+    - python-dev
+    - python-pip
+    - qemu-kvm
+    - qemu-utils
+    - ubuntu-vm-builder
+    - python-libvirt
+    - libvirt-bin
+    - libvirt-dev
+    - vlan
+    - bridge-utils
+    - genisoimage
+    - python-virtualenv
+    - libpq-dev
+    - libgmp-dev
+    - pkg-config
+    - postgresql
+    - postgresql-server-dev-all

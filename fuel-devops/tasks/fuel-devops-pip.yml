@@ -1,0 +1,21 @@
+---
+  - file:
+      path: "{{ devops_path }}"
+      state: directory
+      owner: "{{ devops_user }}"
+      group: "{{ devops_group }}"
+
+  - pip:
+      name: pip
+      state: latest
+
+  - name: Install Fuel-Devops
+    pip:
+      virtualenv: "{{ devops_path }}"
+      state: present
+      name: git+http://github.com/openstack/fuel-devops@master#egg=fuel-devops
+
+  - pip:
+      virtualenv: "{{ devops_path }}"
+      state: present
+      name: db-psycopg2

@@ -1,0 +1,3 @@
+devops_user: sto
+devops_group: sto
+devops_path: "/opt/fuel-devops"

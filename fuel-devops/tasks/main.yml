@@ -1,0 +1,9 @@
+---
+
+  - user:
+      name: sto
+
+  - include: packages.yml
+  - include: python-packages.yml
+  - include: fuel-devops-pip.yml
+  - include: database.yml
