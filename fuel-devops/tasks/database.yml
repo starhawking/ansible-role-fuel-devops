@@ -12,6 +12,14 @@
     regexp: 'peer'
     replace: 'trust'
   notify: restart postgres
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '16.04'
+
+- replace:
+    path: "/etc/postgresql/9.3/main/pg_hba.conf"
+    regexp: 'peer'
+    replace: 'trust'
+  notify: restart postgres
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'
 
 - postgresql_user:
     name: fuel_devops
@@ -22,9 +30,17 @@
   become: true
   become_user: postgres
 
-- shell: psql -c "DO \$$ BEGIN  IF NOT EXISTS (SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'fuel_devops') THEN CREATE DATABASE fuel_devops; END IF ; END \$$;"
+- name: Check if database exists
+  shell: psql -Aqtc "SELECT 1 FROM pg_catalog.pg_database WHERE datname = 'fuel_devops'"
   become: true
   become_user: postgres
+  register: pg_database
+
+- name: Create Database
+  shell: createdb fuel_devops -O fuel_devops
+  become: true
+  become_user: postgres
+  when: pg_database.stdout != "1"
 
 - shell: /opt/fuel-devops/bin/django-admin.py syncdb --settings=devops.settings
   become: true

@@ -7,3 +7,20 @@
       - libpq-dev
       - libgmp-dev
       - pkg-config
+
+  - name: Ubuntu 14.04 Specific Packages
+    apt:
+      state: present
+      name: "{{ item }}"
+    with_items:
+      - libxml2-dev
+      - python-lxml
+      - python-libxml2
+      - libxslt1-dev
+      - python-libxslt1
+      - python-kerberos
+      - python-pyasn1
+      - python-cffi
+      - python-pyasn1-modules
+      - python-pycryptopp
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '14.04'

@@ -1,0 +1,17 @@
+localhost ansible_connection=local
+feynman ansible_host=192.168.88.22 ansible_user=cmay ansible_become=yes
+
+[feynman_hosts]
+devo ansible_host=192.168.122.92 ansible_user=cmay ansible_become=yes ansible_ssh_common_args='-o ProxyCommand="ssh -A -W %h:%p -q shi@172.19.69.123"'
+spud ansible_host=192.168.122.251 ansible_user=cmay ansible_become=yes ansible_ssh_common_args='-o ProxyCommand="ssh -A -W %h:%p -q shi@172.19.69.123"'
+moth ansible_host=192.168.122.234 ansible_user=cmay ansible_become=yes ansible_ssh_common_args='-o ProxyCommand="ssh -A -W %h:%p -q shi@172.19.69.123"'
+
+[labhosts]
+moog ansible_host=192.168.100.202
+
+[labhosts:vars]
+ansible_user=sto
+ansible_become=yes
+ansible_ssh_pass=sto_password
+ansible_become_pass=sto_password
+#ansible_python_interpreter=/usr/bin/python3
