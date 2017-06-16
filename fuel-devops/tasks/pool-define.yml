@@ -1,0 +1,10 @@
+---
+
+- name: Define default libvirt storage pool
+  shell: virsh pool-define-as --type=dir --name=default --target=/var/lib/libvirt/images
+
+- name: Autostart default libvirt storage pool
+  shell: virsh pool-autostart default
+
+- name: Start default libvirt storage pool
+  shell: virsh pool-start default

@@ -13,9 +13,14 @@
     pip:
       virtualenv: "{{ devops_path }}"
       state: present
-      name: git+http://github.com/openstack/fuel-devops@master#egg=fuel-devops
+      name: git+http://github.com/openstack/fuel-devops#egg=fuel-devops
+    become: True
+    become_user: "{{ devops_user }}"
 
   - pip:
       virtualenv: "{{ devops_path }}"
       state: present
       name: db-psycopg2
+    become: True
+    become_user: "{{ devops_user }}"
+

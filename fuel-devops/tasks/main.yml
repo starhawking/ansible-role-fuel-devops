@@ -3,3 +3,4 @@
   - include: python-packages.yml
   - include: fuel-devops-pip.yml
   - include: database.yml
+  - include: pool-define.yml
