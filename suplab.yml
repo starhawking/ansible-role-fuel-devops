@@ -1,0 +1,3 @@
+- hosts: labhosts
+  roles:
+    - suplab

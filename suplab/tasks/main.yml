@@ -1,0 +1,22 @@
+- name: ensure /data world writable and readable
+  file:
+    path: /data
+    state: directory
+    mode: 0777
+
+- name: Ensure libvirt image mount point exists
+  file:
+    path: /data/libvirt/images
+    state: directory
+
+
+- name: Create bind mount for libvirt images
+  mount:
+    path: /var/lib/libvirt/images
+    src: /data/libvirt/images
+    fstype: none
+    opts: bind
+    state: "{{ item }}"
+  with_items:
+    - present
+    - mounted
