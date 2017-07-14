@@ -1,6 +1,12 @@
 ---
 # Packages for Fuel DevOps
 
+- name: Install Ubuntu Hardware Enablement Kernel
+  apt:
+    state: present
+    name: linux-generic-hwe-16.04
+    install_recommends: yes
+
 - name: dist-upgrade
   apt:
     upgrade: dist

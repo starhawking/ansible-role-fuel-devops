@@ -1,3 +1,10 @@
+- name: Ensure dnsmasq installed
+  apt:
+    state: present
+    name: dnsmasq
+
+
+
 - name: ensure /data world writable and readable
   file:
     path: /data
