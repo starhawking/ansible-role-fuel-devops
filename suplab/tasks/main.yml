@@ -1,7 +1,11 @@
-- name: Ensure dnsmasq installed
+- name: Ensure dnsmasq and apache with mod-wsgi are installed
   apt:
     state: present
-    name: dnsmasq
+    name: "{{ item }}"
+  with_items:
+    - dnsmasq
+    - apache2
+    - libapache2-mod-wsgi
 
 
 
