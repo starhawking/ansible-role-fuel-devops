@@ -1,3 +1,5 @@
 - hosts: labhosts
   roles:
     - suplab
+    - ansible-role-megaraid
+
